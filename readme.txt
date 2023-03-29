@@ -1,16 +1,5 @@
-This will (not might, will) delete all your data, so maybe it's a good
-idea to have a backup.
+This will restore a NAND backup stored in SD:/nand.bin (excluding boot blocks).
 
-The following is the bare minimum to run the System Menu and homebrew
-(maybe EULA isn't absolutely required).  Use NUS Downloader to grab
-the following and pack them as WADs, and copy the result to the 'wad'
-folder...
+The purpose of this is allowing users with BootMii as IOS or sdboot/nandboot to restore a NAND backup without having to use a GC controller.
 
-Title ID            Version
--------------------------------------------------
-0000000100000002    257       (System Menu 3.1U)
-0000000100000011    512       (IOS17, for rgsel)
-000000010000001e    1040      (IOS30, for menu)
-000000010000001f    1037      (IOS31, for EULA)
-0001000848414b45    2         (EULA)
-0001000848414c45    2         (rgnsel)
+Use at your own risk. The author cannot be held responsible for any hardware or software malfunction or any other damage to your Wii console.
