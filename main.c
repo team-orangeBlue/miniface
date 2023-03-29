@@ -176,82 +176,45 @@ int main(void)
 			; // better ideas welcome!
 	}
 
-    print_str_noscroll(112, 112, "ohai, world!\n");
+    gfx_printf("NAND Backup Restorer!\n");
 
-	testOTP();
-
-	hexdump(otp.nand_hmac, 20);
-	hexdump(otp.nand_key, 16);
-
-
-    if(testAES()) return 0;
-
-	printf("test: %x\n", my_atoi_hex("00002a4e", 8));
-
-	struct nandfs_fp fp;
-	nandfs_initialize();
-
-#if 0
-	nandfs_open(&fp, "/shared1/content.map");
-#ifdef MSPACES
-	u8 *stuff = (u8 *) mspace_memalign(mem2space, 32, fp.size);
-#else
-	u8 *stuff = (u8 *) memalign(32, fp.size);
-#endif
-	nandfs_read(stuff, fp.size, 1, &fp);
-	hexdump(stuff, fp.size);
-	return 0;
-#endif
-
-	FATFS fs;
+    FATFS fs;
 	f_mount(0, NULL);
 	disk_initialize(0);
 	f_mount(0, &fs);
-	FIL fatf;
-	DIR fatd;
-	FILINFO fati;
-//goto lol;
-	es_format();
-	
-	nandfs_walk();
+    FIL fatf; UINT a;
+    int pg, block;
+    char* buf = (char*)malloc(0x840);
 
-	static char pathname[1024];
-	printf("diropen: %d\n", f_opendir(&fatd, "wad"));
-	while(1) {
-		printf("readdir: %d\n", f_readdir(&fatd, &fati));
-		if(fati.fname[0] == 0) break;
-		sprintf(pathname, "/wad/%s", fati.fname);
-		FRESULT ret = f_open(&fatf, pathname, FA_READ);
-		printf("open %s: %d\n", pathname, ret);
-		if(ret) continue;
-		gfx_printf("Installing %s\n", pathname);
-		gfx_printf("fsize: %d\n", fatf.fsize);
+    FRESULT ret = f_open(&fatf, "/nand.bin", FA_READ);
+    if(ret){
+        gfx_printf("Error: cannot find nand.bin\n");
+        for(;;);
+    }
 
-		if(wad_install(&fatf)) break;
-	}
+    u8 NANDStatus = nand_status();
 
-	printf("create: %d\n", nandfs_create("/title/00000001/00000002/data/setting.txt", 0, 0, NANDFS_ATTR_FILE, 3, 3, 3));
-//lol:
-	s32 ret = nandfs_open(&fp, "/title/00000001/00000002/data/setting.txt");
-	printf("open 2: %d\n", ret);
+    //gfx_printf("NAND Status: %d\n", nand_status());
 
-	char settingTxt[0x100] __attribute__((aligned(32)));
-	memset(settingTxt, 0, 0x100);
+    for(block = 8; block < 4096; block++){
+        nand_erase(block*64);
+        gfx_printf("Erased block %d\n", block);
+    }
 
-	u32 serno = 104170609;
-	sprintf(settingTxt, "AREA=USA\r\nMODEL=RVL-001(USA)\r\nDVD=0\r\nMPCH=0x7FFE\r\nCODE=LU\r\nSERNO=%d\r\nVIDEO=NTSC\r\nGAME=US\r\n", serno);
+    f_lseek(&fatf, 0x200 * 0x840);
+    for(pg = 0x200; pg < 4096 * 64; pg++){
+        f_read(&fatf, buf, 0x840, &a);
+        nand_write(pg, buf, buf+0x800);
 
-	lolcrypt((u8 *)settingTxt);
+        while(nand_status() != NANDStatus);
 
-	nandfs_write((u8 *)settingTxt, sizeof(settingTxt), 1, &fp);
+        if(pg % 64 == 0)
+            
+        gfx_printf("Flashed block %d\n", pg/64);
+    }
 
-	printf("iplsave: %d\n", nandfs_create("/title/00000001/00000002/data/iplsave.bin", 0, 0, NANDFS_ATTR_FILE, 3, 3, 3));
-
-	nandfs_writemeta();
-
-	printf("Final listing:\n");
-	nandfs_walk();
-
+    f_close(&fatf);
+    free(buf);
 	boot2_run(1, 2);
 	gfx_printf("Done\n");
 
