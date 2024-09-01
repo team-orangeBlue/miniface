@@ -29,7 +29,7 @@ Copyright (C) 2009		bLAStY <blasty@bootmii.org>
 #define PAD_ANY   0x1F7F
 
 #define GPIO_POWER	PAD_RIGHT
-#define GPIO_RESET	PAD_A
+#define GPIO_RESET	0x8000 // disabled due to bad design of RESET key
 #define GPIO_EJECT	PAD_START
 
 typedef struct {

@@ -29,10 +29,10 @@ typedef struct {
 } gfx_rect;
 
 #define CONSOLE_WIDTH 500
-#define CONSOLE_LINES 10
-#define CONSOLE_Y 100
+#define CONSOLE_LINES 26
+#define CONSOLE_Y 0
 
-#define CONSOLE_X  58
+#define CONSOLE_X  0
 #define CONSOLE_CHAR_HEIGHT 16
 #define CONSOLE_ROW_HEIGHT (CONSOLE_CHAR_HEIGHT + 1) 
 
@@ -177,7 +177,7 @@ void print_str(const char *str, size_t len) {
 int gfx_printf(const char *fmt, ...)
 {
 	va_list args;
-	char buffer[40];
+	char buffer[75];
 	int i;
 
 	memset(buffer, 0, sizeof buffer);

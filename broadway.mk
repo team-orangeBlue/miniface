@@ -4,10 +4,10 @@ endif
 
 PREFIX = $(WIIDEV)/bin/powerpc-none-elf-
 
-CFLAGS = -mcpu=750 -mpaired -m32 -mhard-float -mno-eabi -mno-sdata
+CFLAGS = -mcpu=750 -m32 -mhard-float -mno-eabi -mno-sdata
 CFLAGS += -ffreestanding -ffunction-sections
 CFLAGS += -Wall -Wextra -O0 -pipe
-CFLAGS += -Wno-error=unused-but-set-variable
+CFLAGS += -Wno-error=unused-but-set-variable -Wno-error=enum-conversion
 ASFLAGS =
 LDFLAGS = -mcpu=750 -m32 -n -z muldefs -nostartfiles -nodefaultlibs -Wl,-gc-sections
 

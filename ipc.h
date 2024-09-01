@@ -61,6 +61,7 @@ Copyright (C) 2008, 2009	Sven Peter <svenpeter@gmail.com>
 
 #define IPC_KEYS_GETOTP	0x00030000
 #define IPC_KEYS_GETEEP	0x00030001
+#define IPC_KEYS_SETEEP 0x00038001
 
 #define IPC_AES_RESET	0x00040000
 #define IPC_AES_SETIV	0x00040001
@@ -72,6 +73,7 @@ Copyright (C) 2008, 2009	Sven Peter <svenpeter@gmail.com>
 #define IPC_BOOT2_TMD	0x00050001
 
 #define IPC_PPC_BOOT	0x00060000
+#define IPC_PPC_BOOT_FILE 0x00068001
 
 typedef struct {
 	union {

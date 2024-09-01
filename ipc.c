@@ -220,7 +220,7 @@ ipc_request *ipc_exchange(u32 code, u32 num_args, ...)
 
 	if(num_args)
 		va_start(ap, num_args);
-
+		
 	ipc_vpost(code, cur_tag, num_args, ap);
 
 	if(num_args)

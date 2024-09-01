@@ -12,6 +12,7 @@ Copyright (C) 2009		Haxx Enterprises <bushing@gmail.com>
 
 #include "types.h"
 
+char * strstr(const char *s, const char *find);
 size_t strlen(const char *);
 size_t strnlen(const char *, size_t);
 void *memset(void *, int, size_t);

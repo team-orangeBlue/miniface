@@ -1,12 +1,11 @@
 include broadway.mk
 
-CFLAGS += -Werror
 DEFINES = -DLACKS_SYS_TYPES_H -DLACKS_ERRNO_H -DLACKS_STDLIB_H -DLACKS_STRING_H -DLACKS_STRINGS_H -DLACKS_UNISTD_H
 DEFINES += -DMSPACES
 LDSCRIPT = mini.ld
 LIBS = -lgcc
 
-TARGET = ppcboot.elf
+TARGET = miniface.elf
 
 OBJS = realmode.o crt0.o main.o string.o sync.o time.o printf.o input.o \
 	exception.o exception_2200.o malloc.o gecko.o video_low.o \
