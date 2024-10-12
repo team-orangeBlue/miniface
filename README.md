@@ -71,7 +71,7 @@ Compilation can be done with your current setup.
 You will need a `powerpc-none-elf` chain. At the time of writing, devkitPPC does not distribute precompiled binaries for this chain. 
 Using its' `powerpc-eabi` compilers will **not** work and cause your system to blackscreen.
 
-If you're unsure on how to obtain these compilers, you are welcomed to try using `autobuild.sh` provided in (this `ppcskel` repository)[https://github.com/AndrewPiroli/ppcskel/tree/master/compiler].
+If you're unsure on how to obtain these compilers, you are welcomed to try using `autobuild.sh` provided in [this `ppcskel` repository](https://github.com/AndrewPiroli/ppcskel/tree/master/compiler).
 
 Afterwards you could probably do `export WIIDEV=/opt/devkitamateur` or wherever you have the `bin` folder with the compilers mentioned above.
 
